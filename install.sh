@@ -16,7 +16,7 @@ CYAN="\033[1;36m"
 RED="\033[1;31m"
 RESET="\033[0m"
 
-REPO_SLUG="${GITHUB_REPO:-chrismitsacopoulos/education_stack}"
+REPO_SLUG="${GITHUB_REPO:-chrismitsacopoulos/LaTeX-For-Education}"
 TARGET_DIR="${HOME}/Documents/Teaching-LaTeX"
 TEX_PATH="/Library/TeX/texbin"
 
