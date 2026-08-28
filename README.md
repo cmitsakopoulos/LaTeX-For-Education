@@ -9,7 +9,7 @@
 Open the **Terminal** application on macOS (`Command + Space`, type `Terminal`, and press `Return`), then execute the following installation command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/chrismitsacopoulos/LaTeX-For-Education/main/install.sh | zsh
+curl -fsSL https://raw.githubusercontent.com/cmitsakopoulos/LaTeX-For-Education/main/install.sh | zsh
 ```
 
 ### Automated Configuration Steps:
