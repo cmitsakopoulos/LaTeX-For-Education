@@ -1,0 +1,77 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.2cm, bottom=2.2cm, left=2.0cm, right=2.0cm, headheight=14pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{softgray}{RGB}{248, 249, 250}
+
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=journalblue, urlcolor=journalblue, citecolor=journalblue}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{\textcolor{journalblue}{BIO 401: Quantitative Biophysics \& Ecological Systems}}}
+\fancyhead[R]{\textbf{Fall 2026}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.8cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\huge\bfseries BIO 401: Quantitative Biophysics \par}
+    \vspace{0.2cm}
+    {\Large\itshape Bio-Energetics, Enzymatic Kinetics, and Ecological Dynamics \par}
+    \vspace{0.2cm}
+    {\small Division of Biological Sciences \& Quantitative Ecology \textbullet\ Fall Semester 2026 \par}
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{tcolorbox}[enhanced, colback=softgray, colframe=journalblue, boxrule=0.8pt, arc=2pt]
+    \textbf{Instructor:} Dr.~Jordan Taylor \hfill \textbf{Lecture Hours:} Mon/Wed 14:00--15:30 \\
+    \textbf{Email:} \texttt{jordan.taylor@university.edu} \hfill \textbf{Room:} BioSciences Hall 204 \\
+    \textbf{Office Hours:} Thursday 10:00--12:00 \hfill \textbf{Wet Lab Session:} Friday 09:00--12:00 (Lab 4)
+\end{tcolorbox}
+
+\section*{Course Overview \& Objectives}
+BIO 401 introduces students to mathematical and physical principles in biology. Topics include thermodynamic energy dissipation in ecosystems, Lindeman trophic transfer laws, enzyme kinetics (Michaelis-Menten, Hill cooperativity), receptor-ligand binding cascades, and non-linear population dynamics.
+
+\section*{Grading Scheme}
+\begin{center}
+\begin{tabular}{@{} l c l @{}}
+    \toprule
+    \textbf{Assessment Component} & \textbf{Weight} & \textbf{Description} \\
+    \midrule
+    Laboratory Reports (4)  & 30\% & Spectrophotometric enzyme kinetics and ecological field assays \\
+    Problem Sets (5)        & 25\% & Mathematical derivations and ODE numerical simulations \\
+    Midterm Examination      & 20\% & In-class theoretical and quantitative assessment \\
+    Final Research Project  & 25\% & Comprehensive computational biophysics project and presentation \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+\section*{15-Week Curriculum Roadmap}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item \textbf{Weeks 1--3:} Bio-energetics, thermodynamics of living systems, Lindeman trophic efficiency.
+    \item \textbf{Weeks 4--6:} Trophic energy pyramids, food webs, and nutrient cycling cascades.
+    \item \textbf{Weeks 7--8:} Single-substrate enzyme kinetics, Briggs-Haldane QSSA, and Lineweaver-Burk plots.
+    \item \textbf{Week 9:} \textbf{Midterm Examination}.
+    \item \textbf{Weeks 10--12:} Allosteric regulation, Hill cooperativity, and GPCR signal transduction cascades.
+    \item \textbf{Weeks 13--15:} Lotka-Volterra predator-prey dynamics, phase plane analysis, and stability.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,77 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.2cm, bottom=2.2cm, left=2.0cm, right=2.0cm, headheight=14pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{softgray}{RGB}{248, 249, 250}
+
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=journalblue, urlcolor=journalblue, citecolor=journalblue}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{\textcolor{journalblue}{ECON 401: Advanced Econometrics \& Causal Inference}}}
+\fancyhead[R]{\textbf{Fall 2026}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.8cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\huge\bfseries ECON 401: Advanced Econometrics \par}
+    \vspace{0.2cm}
+    {\Large\itshape Panel Data Models, Quasi-Experiments, and Causal Inference \par}
+    \vspace{0.2cm}
+    {\small Department of Economics \textbullet\ Fall Semester 2026 \par}
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{tcolorbox}[enhanced, colback=softgray, colframe=journalblue, boxrule=0.8pt, arc=2pt]
+    \textbf{Instructor:} Prof.~Elena Rostova \hfill \textbf{Lecture Hours:} Tue/Thu 13:30--15:00 \\
+    \textbf{Email:} \texttt{rostova@university.edu} \hfill \textbf{Room:} Economics Hall 310 \\
+    \textbf{Office Hours:} Wednesday 10:00--12:00 \hfill \textbf{Lab Session:} Thursday 16:00--18:00 (Lab B)
+\end{tcolorbox}
+
+\section*{Course Overview \& Objectives}
+ECON 401 equips students with modern econometric tools for causal identification using observational and quasi-experimental data. Key topics include potential outcomes, Two-Way Fixed Effects, Difference-in-Differences, Instrumental Variables (2SLS), and cluster-robust inference.
+
+\section*{Grading Scheme}
+\begin{center}
+\begin{tabular}{@{} l c l @{}}
+    \toprule
+    \textbf{Assessment Component} & \textbf{Weight} & \textbf{Description} \\
+    \midrule
+    Problem Sets (5)        & 30\% & Econometric proofs and empirical Python/Stata replications \\
+    Midterm Examination      & 25\% & Theoretical derivations and identification analysis \\
+    Empirical Term Paper    & 35\% & Original causal estimation project using real-world microdata \\
+    Class Participation      & 10\% & Discussion of landmark empirical papers \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+\section*{15-Week Curriculum Roadmap}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item \textbf{Weeks 1--3:} Potential outcomes framework, SUTVA, and selection on observables.
+    \item \textbf{Weeks 4--6:} Panel data models: Pooled OLS, Random Effects, and Within-Group Fixed Effects.
+    \item \textbf{Weeks 7--8:} Difference-in-Differences, parallel trends, and staggered rollouts.
+    \item \textbf{Week 9:} \textbf{Midterm Examination}.
+    \item \textbf{Weeks 10--12:} Instrumental variables, 2SLS, weak instrument diagnostics, and LATE.
+    \item \textbf{Weeks 13--15:} Cluster-robust inference, Liang-Zeger standard errors, and bootstrap inference.
+\end{itemize}
+
+\end{document}

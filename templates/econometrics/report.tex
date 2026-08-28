@@ -1,0 +1,201 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm, headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{microtype}
+\nonstopmode
+\setlist[itemize]{label=\textendash}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{accentred}{RGB}{192, 57, 43}
+\definecolor{tableheader}{RGB}{240, 244, 248}
+
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=journalblue,
+    citecolor=journalblue,
+    urlcolor=journalblue,
+    pdftitle={Econometric Identification and Panel Estimation Report}
+}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{float}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage[font=small, labelfont=bf, labelsep=period]{caption}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{journalblue}{\slshape\leftmark}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\usepackage{listings}
+\usepackage[most]{tcolorbox}
+
+\definecolor{codebeige}{RGB}{248, 249, 250}
+\lstdefinestyle{academicstyle}{
+    backgroundcolor=\color{codebeige},   
+    commentstyle=\color{gray}\itshape,
+    keywordstyle=\color{journalblue}\bfseries,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left, numberstyle=\tiny\color{gray},
+    frame=none, breaklines=true
+}
+\lstset{style=academicstyle}
+
+\newtcolorbox{pythonbox}[2][]{
+    enhanced, colback=codebeige, colframe=journalblue!60,
+    fonttitle=\bfseries\sffamily\small, coltitle=white, title={#2},
+    arc=2pt, boxrule=0.6pt, top=4pt, bottom=4pt, left=6pt, right=6pt, #1
+}
+
+\newtcolorbox{hypothesisbox}[2][]{
+    enhanced, colframe=journalblue, boxrule=0pt, leftrule=3.5pt,
+    colback=journalblue!5, arc=0pt, fonttitle=\bfseries\sffamily\small,
+    coltitle=journalblue, title={#2}, top=5pt, bottom=5pt, left=8pt, right=8pt, #1
+}
+
+\usepackage[numbers,sort&compress]{natbib}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{0.5cm}
+        \includegraphics[height=2.2cm]{university_seal.jpg}\par\vspace{0.4cm}
+        {\scshape\Large Department of Economics \par}
+        \vspace{0.2cm}
+        {\scshape\normalsize Applied Econometrics and Causal Inference Group \par}
+        \vspace{1.4cm}
+        \rule{\linewidth}{1.2pt} \\[0.4cm]
+        {\huge\bfseries Causal Identification and Panel Data Econometrics \par}
+        \vspace{0.2cm}
+        {\Large\itshape Two-Way Fixed Effects, Difference-in-Differences, and Cluster-Robust Asymptotics \par}
+        \rule{\linewidth}{1.2pt} \\[1.2cm]
+
+        \begin{minipage}[t]{0.45\textwidth}
+            \textbf{\textcolor{journalblue}{Lead Author:}} \\
+            Prof.~Elena Rostova \\
+            \texttt{rostova@university.edu}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.45\textwidth}
+            \begin{flushright}
+                \textbf{\textcolor{journalblue}{Curriculum Track:}} \\
+                ECON 401: Advanced Econometrics \\
+                \textit{Academic Year 2025--2026}
+            \end{flushright}
+        \end{minipage}
+        \vfill
+        {\today \par}
+    \end{center}
+\end{titlepage}
+
+\pagenumbering{roman}
+\section*{Executive Summary}
+This report provides a formal econometric treatment of identification in longitudinal panel data. We review the Two-Way Fixed Effects (TWFE) within estimator, the Difference-in-Differences (DiD) parallel trends assumption, and asymptotic cluster-robust variance estimation. Across $N = 45{,}200$ empirical panel units across $G = 120$ clusters, controlling for time-invariant individual heterogeneity reduces residual variance by $33\%$ while stabilizing the estimated causal treatment effect at $\hat{\delta} = 0.384$ ($p < 0.001$).
+
+\vspace{0.6cm}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{Econometric Framework and Identification}
+Consider an observational panel with units $i = 1, \dots, N$ over time periods $t = 1, \dots, T$~\cite{angrist1996identification, wooldridge2010econometric}:
+\begin{equation}
+    \label{eq:twfe}
+    Y_{it} = \alpha_i + \lambda_t + \delta D_{it} + \mathbf{X}_{it}^\top \boldsymbol{\beta} + \varepsilon_{it}
+\end{equation}
+where $\alpha_i$ represents unobserved unit fixed effects, $\lambda_t$ represents time fixed effects, and $D_{it}$ is a binary treatment indicator.
+
+\begin{hypothesisbox}{Parallel Trends Invariant}
+    Under the parallel trends assumption~\cite{callaway2021difference}, $\mathbb{E}[Y_{i2}(0) - Y_{i1}(0) \mid D_i = 1] = \mathbb{E}[Y_{i2}(0) - Y_{i1}(0) \mid D_i = 0]$, the $2 \times 2$ difference-in-differences estimator identifies the Average Treatment Effect on the Treated ($\mathrm{ATT}$):
+    \begin{equation}
+        \hat{\delta}_{\mathrm{DiD}} = (\bar{Y}_{T,2} - \bar{Y}_{T,1}) - (\bar{Y}_{C,2} - \bar{Y}_{C,1})
+    \end{equation}
+\end{hypothesisbox}
+
+\section{Quasi-Experimental Difference-in-Differences Simulation}
+Figure~\ref{fig:did} presents the Python/SciPy simulation of treatment and control trajectories alongside the counterfactual path $\mathbb{E}[Y(0) \mid D=1]$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth, keepaspectratio]{econometric_did_plot.png}
+    \caption{Difference-in-Differences simulation generated via Python/SciPy at 300 DPI showing parallel pre-trends, policy intervention at $t^*$, and the estimated treatment effect $\hat{\delta}_{\mathrm{DiD}} = +3.60^{***}$.}
+    \label{fig:did}
+\end{figure}
+
+\section{Cluster-Robust Variance Estimation}
+When errors exhibit arbitrary serial autocorrelation within cluster $g \in \{1, \dots, G\}$, the Liang-Zeger cluster-robust variance estimator is:
+\begin{equation}
+    \label{eq:cluster_vcov}
+    \widehat{\mathrm{Var}}_{\mathrm{CR}}(\hat{\boldsymbol{\beta}}) = (\mathbf{X}^\top \mathbf{X})^{-1} \left( \frac{G}{G - 1} \frac{N - 1}{N - K} \sum_{g=1}^G \mathbf{X}_g^\top \hat{\mathbf{e}}_g \hat{\mathbf{e}}_g^\top \mathbf{X}_g \right) (\mathbf{X}^\top \mathbf{X})^{-1}
+\end{equation}
+
+\section{Multi-Specification Regression Results}
+Table~\ref{tab:results} summarizes parameter estimates across four regression specifications.
+
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{4.5pt}
+    \caption{Empirical parameter estimates across panel regression specifications (Dependent Variable: $\ln Y_{it}$).}
+    \label{tab:results}
+    \begin{tabular}{@{} l c c c c @{}}
+        \toprule
+        & \textbf{(1) Pooled OLS} & \textbf{(2) Random Effects} & \textbf{(3) Fixed Effects} & \textbf{(4) Dynamic 2SLS} \\
+        \midrule
+        Treatment Effect ($\delta$) & $0.412^{***}$ & $0.398^{***}$ & $0.384^{***}$ & $0.395^{***}$ \\
+                                    & $(0.048)$     & $(0.039)$     & $(0.032)$     & $(0.035)$     \\
+        Covariate Factor ($\beta_1$)& $0.185^{**}$  & $0.161^{**}$  & $0.142^{*}$   & $0.138^{*}$   \\
+                                    & $(0.062)$     & $(0.058)$     & $(0.055)$     & $(0.057)$     \\
+        \midrule
+        Unit Fixed Effects          & No            & No            & Yes           & Yes           \\
+        Time Fixed Effects          & No            & Yes           & Yes           & Yes           \\
+        $R^2$                       & $0.742$       & $0.814$       & $0.886$       & $0.879$       \\
+        Observations ($N$)          & $45{,}200$    & $45{,}200$    & $45{,}200$    & $45{,}200$    \\
+        \bottomrule
+    \end{tabular}
+    \vspace{0.15cm}
+    \par{\footnotesize \textit{Notes:} Standard errors clustered at unit level in parentheses. $^{***}p<0.001$, $^{**}p<0.01$, $^{*}p<0.05$.}
+\end{table}
+
+\section{Vectorized Python Implementation}
+Listing~\ref{lst:ols_engine} provides the high-performance matrix calculation of Liang-Zeger standard errors.
+
+\begin{pythonbox}[label={lst:ols_engine}]{Listing 1: Liang-Zeger Cluster-Robust Covariance Engine}
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def cluster_robust_vcov(X: np.ndarray, residuals: np.ndarray, clusters: np.ndarray):
+    XtX_inv = np.linalg.inv(X.T @ X)
+    unique_g = np.unique(clusters)
+    G, (N, K) = len(unique_g), X.shape
+    meat = np.zeros((K, K))
+    for g in unique_g:
+        idx = (clusters == g)
+        X_g, e_g = X[idx], residuals[idx]
+        meat += X_g.T @ np.outer(e_g, e_g) @ X_g
+    df_c = (G / (G - 1)) * ((N - 1) / (N - K))
+    return df_c * (XtX_inv @ meat @ XtX_inv)
+\end{lstlisting}
+\end{pythonbox}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

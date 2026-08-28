@@ -1,0 +1,77 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.2cm, bottom=2.2cm, left=2.0cm, right=2.0cm, headheight=14pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{softgray}{RGB}{248, 249, 250}
+
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=journalblue, urlcolor=journalblue, citecolor=journalblue}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{\textcolor{journalblue}{STAT 401: Mathematical Statistics \& Probability Theory}}}
+\fancyhead[R]{\textbf{Fall 2026}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.8cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\huge\bfseries STAT 401: Mathematical Statistics \par}
+    \vspace{0.2cm}
+    {\Large\itshape Probability Spaces, Asymptotic Theory, and Categorical Inference \par}
+    \vspace{0.2cm}
+    {\small Department of Statistics \& Mathematical Sciences \textbullet\ Fall Semester 2026 \par}
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{tcolorbox}[enhanced, colback=softgray, colframe=journalblue, boxrule=0.8pt, arc=2pt]
+    \textbf{Instructor:} Prof.~Alex Morgan \hfill \textbf{Lecture Hours:} Mon/Wed 10:00--11:30 \\
+    \textbf{Email:} \texttt{alex.morgan@university.edu} \hfill \textbf{Room:} Math Sciences Hall 402 \\
+    \textbf{Office Hours:} Tuesday 14:00--16:00 \hfill \textbf{Lab Session:} Friday 14:00--16:00 (Room 105)
+\end{tcolorbox}
+
+\section*{Course Overview \& Objectives}
+This course provides an advanced introduction to mathematical probability and statistical inference. Students develop rigorous mathematical foundations in measure-theoretic probability basics, characteristic functions, Central Limit asymptotics, maximum likelihood estimation, Gaussian hypothesis testing, and contingency table association.
+
+\section*{Grading Scheme}
+\begin{center}
+\begin{tabular}{@{} l c l @{}}
+    \toprule
+    \textbf{Assessment Component} & \textbf{Weight} & \textbf{Description} \\
+    \midrule
+    Weekly Problem Sets (6) & 30\% & Mathematical derivations and Python simulations \\
+    Midterm Examination      & 30\% & In-class theoretical and computational examination \\
+    Final Project / Exam    & 35\% & Empirical dataset estimation and statistical inference report \\
+    Participation \& Quizzes & 5\%  & Active workshop and lab engagement \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+\section*{15-Week Curriculum Roadmap}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item \textbf{Weeks 1--3:} Probability spaces, Kolmogorov axioms, conditional probability, Bayes' rule.
+    \item \textbf{Weeks 4--6:} Random variables, joint distributions, expectation, variance, covariance matrices.
+    \item \textbf{Weeks 7--8:} Moment generating functions, Law of Large Numbers, Central Limit Theorem.
+    \item \textbf{Week 9:} \textbf{Midterm Examination}.
+    \item \textbf{Weeks 10--12:} Maximum likelihood estimation, asymptotic normality, Fisher information.
+    \item \textbf{Weeks 13--15:} Categorical inference, contingency tables, $\chi^2$ tests of independence, Odds Ratios.
+\end{itemize}
+
+\end{document}

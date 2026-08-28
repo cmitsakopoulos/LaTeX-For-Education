@@ -1,0 +1,17 @@
+# Cursor & VS Code AI Rules for LaTeX Education
+
+You are an expert LaTeX and academic typesetting assistant helping university educators, professors, and teaching assistants.
+
+## Behavioral & Syntax Guardrails
+1. **Always Output Complete, Compilable LaTeX Snippets:** Never leave missing environment closures (`\end{...}`) or unescaped characters (`%`, `_`, `&`, `$`, `#`).
+2. **Adhere to the Thematic Subject Suites:**
+   - **Statistics & Probability:** `templates/statistics/` (`presentation.tex`, `report.tex`, `exam.tex`, `assignment.tex`, `syllabus.tex`).
+   - **Econometrics & Causal Inference:** `templates/econometrics/` (`presentation.tex`, `report.tex`, `exam.tex`, `assignment.tex`, `syllabus.tex`).
+   - **Biophysics & Ecological Systems:** `templates/biology/` (`presentation.tex`, `report.tex`, `exam.tex`, `assignment.tex`, `syllabus.tex`).
+3. **Mandatory Multi-Pass Compilation Awareness:**
+   - LaTeX requires **at least two compilation passes** (or three with `bibtex`/`biber`) to write and read `.aux` data for tables (`\gradetable`), dynamic column calculations, TOCs, and cross-references (`\label`, `\ref`, `\eqref`, `\numpages`).
+   - Single-pass compilation often outputs messages like *"Run LaTeX again to produce the table"*; always ensure scripts/instructions specify two passes or use `latexmk -pdf`.
+4. **No Obsolete Packages:** Never suggest or inject deprecated packages such as `a4wide`, `epsfig`, `t1enc`, or `doublespace`. Use `geometry`, `graphicx`, `fontenc`, and `setspace`.
+5. **Answer Key Preservation:** When generating or modifying exam questions, always enclose complete solutions inside `\begin{solution} ... \end{solution}` blocks and rubrics in `\begin{rubricbox}`.
+6. **Code Presentation:** Always use `\begin{frame}[fragile]` in Beamer when using the `listings` or `verbatim` environment.
+7. **Graphic Standards:** Zero AI-generated images. Use deterministic Python figures from `templates/assets/generate_figures.py` ($\ge 300\text{ DPI}$) or native TikZ vector diagrams.

@@ -1,0 +1,136 @@
+\documentclass[addpoints, 12pt]{exam}
+
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm, headheight=15pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{microtype}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+% Solution Toggle: Uncomment to compile instructor answer key; comment out for blank student exam
+\printanswers
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{tableheader}{RGB}{240, 244, 248}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{rubricbox}[1][]{
+    enhanced, colback=tableheader, colframe=journalblue!70,
+    boxrule=0.6pt, arc=2pt, fonttitle=\bfseries\sffamily\small,
+    coltitle=journalblue, title={Grading Rubric \& Point Distribution},
+    top=4pt, bottom=4pt, left=6pt, right=6pt, #1
+}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{245, 248, 252}
+\renewcommand{\solutiontitle}{\noindent\textbf{\textcolor{journalblue}{Solution:}}\enspace}
+
+\pagestyle{headandfoot}
+\firstpageheader{\textbf{ECON 401}}{\textbf{Midterm Examination}}{\textbf{Fall 2026}}
+\runningheader{\textbf{ECON 401}}{Page \thepage\ of \numpages}{\textbf{Midterm Examination}}
+\firstpagefooter{}{}{}
+\runningfooter{}{\thepage}{}
+\runningheadrule
+\firstpageheadrule
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.6cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\Large\bfseries Advanced Econometrics and Causal Inference \par}
+    \vspace{0.2cm}
+    {\normalsize ECON 401 Midterm Examination \textbullet\ Time Allowed: 90 Minutes \par}
+\end{center}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabular}{@{}p{0.65\textwidth} p{0.30\textwidth}@{}}
+    \textbf{Student Full Name:} \hrulefill & \textbf{Student ID:} \hrulefill \\
+    \textbf{Section / Lab:} \hrulefill & \textbf{Date:} \today \\
+\end{tabular}
+
+\vspace{0.3cm}
+\begin{center}
+    \gradetable[h][questions]
+\end{center}
+
+\vspace{0.4cm}
+\begin{questions}
+
+\question \textbf{Conceptual Econometric Foundations (15 Points)}
+\begin{parts}
+    \part[5] Suppose a linear regression model satisfies all Gauss-Markov assumptions except homoskedasticity (i.e., $\mathrm{Var}(\varepsilon_i \mid \mathbf{X}_i) = \sigma_i^2$). What are the statistical properties of the OLS estimator $\hat{\boldsymbol{\beta}}$?
+    \begin{choices}
+        \choice Biased and inconsistent.
+        \CorrectChoice Unbiased and consistent, but no longer Best Linear Unbiased Estimator (BLUE).
+        \choice Biased, but asymptotically efficient.
+        \choice Unbiased and still asymptotically BLUE.
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} Under heteroskedasticity, $\mathbb{E}[\hat{\boldsymbol{\beta}} \mid \mathbf{X}] = \boldsymbol{\beta}$ remains valid since $\mathbb{E}[\varepsilon \mid \mathbf{X}] = 0$. However, OLS is inefficient relative to Generalized Least Squares (GLS).
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[5] In a Two-Stage Least Squares (2SLS) model with instrument vector $\mathbf{Z}$, what condition defines instrument relevance?
+    \begin{choices}
+        \choice $\mathbb{E}[\mathbf{Z}'\boldsymbol{\varepsilon}] = \mathbf{0}$.
+        \CorrectChoice $\mathrm{Rank}(\mathbb{E}[\mathbf{Z}'\mathbf{X}]) = K$, where $K$ is the number of endogenous regressors.
+        \choice $\mathbf{Z}'\mathbf{Z} = \mathbf{I}$.
+        \choice The $R^2$ of the second stage must exceed $0.90$.
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} Instrument relevance requires non-zero correlation between instruments $\mathbf{Z}$ and endogenous regressors $\mathbf{X}$ (full column rank in the first-stage projection).
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[5] Under the parallel trends assumption in a Difference-in-Differences setup, what trajectory does the counterfactual estimate represent?
+    \begin{choices}
+        \choice The control group if it had received treatment.
+        \CorrectChoice The treated group trajectory if it had not received treatment.
+        \choice The overall sample population mean.
+        \choice The instrumental variable projection.
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} The counterfactual $\mathbb{E}[Y_{i2}(0) \mid D_i=1]$ estimates the unobserved post-reform potential outcome of the treated group in the absence of treatment.
+    \end{solution}
+\end{parts}
+
+\vspace{0.5cm}
+\question \textbf{Derivation of the Ordinary Least Squares (OLS) Estimator (20 Points)}
+Let $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$, where $\mathbf{y} \in \mathbb{R}^N$ and $\mathbf{X} \in \mathbb{R}^{N \times K}$ has full column rank.
+\begin{parts}
+    \part[10] Write the Residual Sum of Squares (RSS) in matrix notation and compute the first-order condition with respect to $\boldsymbol{\beta}$.
+    \begin{solution}
+        $\mathrm{RSS}(\boldsymbol{\beta}) = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^\top (\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) = \mathbf{y}^\top\mathbf{y} - 2\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y} + \boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta}$.
+        
+        Taking the gradient with respect to $\boldsymbol{\beta}$ and setting to zero:
+        \begin{equation*}
+            \frac{\partial \mathrm{RSS}}{\partial \boldsymbol{\beta}} = -2\mathbf{X}^\top\mathbf{y} + 2\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta} = \mathbf{0} \implies \mathbf{X}^\top\mathbf{X}\hat{\boldsymbol{\beta}} = \mathbf{X}^\top\mathbf{y}
+        \end{equation*}
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[10] Solve for $\hat{\boldsymbol{\beta}}$ and derive its conditional variance $\mathrm{Var}(\hat{\boldsymbol{\beta}} \mid \mathbf{X})$ under homoskedasticity $\mathrm{Var}(\boldsymbol{\varepsilon} \mid \mathbf{X}) = \sigma^2 \mathbf{I}_N$.
+    \begin{solution}
+        Since $\mathbf{X}$ has full column rank, $(\mathbf{X}^\top\mathbf{X})^{-1}$ exists:
+        \begin{equation*}
+            \hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}
+        \end{equation*}
+        Substituting $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$:
+        \begin{equation*}
+            \hat{\boldsymbol{\beta}} = \boldsymbol{\beta} + (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon}
+        \end{equation*}
+        \begin{equation*}
+            \mathrm{Var}(\hat{\boldsymbol{\beta}} \mid \mathbf{X}) = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top \mathrm{Var}(\boldsymbol{\varepsilon} \mid \mathbf{X}) \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1} = \sigma^2 (\mathbf{X}^\top\mathbf{X})^{-1} \quad \blacksquare
+        \end{equation*}
+    \end{solution}
+\end{parts}
+
+\end{questions}
+
+\end{document}

@@ -1,0 +1,130 @@
+\documentclass[addpoints, 12pt]{exam}
+
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm, headheight=15pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{microtype}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+% Solution Toggle: Uncomment to compile instructor answer key; comment out for blank student exam
+\printanswers
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{tableheader}{RGB}{240, 244, 248}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{rubricbox}[1][]{
+    enhanced, colback=tableheader, colframe=journalblue!70,
+    boxrule=0.6pt, arc=2pt, fonttitle=\bfseries\sffamily\small,
+    coltitle=journalblue, title={Grading Rubric \& Point Distribution},
+    top=4pt, bottom=4pt, left=6pt, right=6pt, #1
+}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{245, 248, 252}
+\renewcommand{\solutiontitle}{\noindent\textbf{\textcolor{journalblue}{Solution:}}\enspace}
+
+\pagestyle{headandfoot}
+\firstpageheader{\textbf{BIO 401}}{\textbf{Midterm Examination}}{\textbf{Fall 2026}}
+\runningheader{\textbf{BIO 401}}{Page \thepage\ of \numpages}{\textbf{Midterm Examination}}
+\firstpagefooter{}{}{}
+\runningfooter{}{\thepage}{}
+\runningheadrule
+\firstpageheadrule
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.6cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\Large\bfseries Quantitative Biophysics and Ecological Systems \par}
+    \vspace{0.2cm}
+    {\normalsize BIO 401 Midterm Examination \textbullet\ Time Allowed: 90 Minutes \par}
+\end{center}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabular}{@{}p{0.65\textwidth} p{0.30\textwidth}@{}}
+    \textbf{Student Full Name:} \hrulefill & \textbf{Student ID:} \hrulefill \\
+    \textbf{Section / Lab:} \hrulefill & \textbf{Date:} \today \\
+\end{tabular}
+
+\vspace{0.3cm}
+\begin{center}
+    \gradetable[h][questions]
+\end{center}
+
+\vspace{0.4cm}
+\begin{questions}
+
+\question \textbf{Conceptual Biophysics and Bio-Energetics (15 Points)}
+\begin{parts}
+    \part[5] In enzyme kinetics, how does a competitive reversible inhibitor affect the apparent parameters $V_{\max}$ and $K_m$?
+    \begin{choices}
+        \choice $V_{\max}$ decreases; $K_m$ remains unchanged.
+        \CorrectChoice $V_{\max}$ remains unchanged; apparent $K_m$ increases ($K_m' = K_m(1 + [I]/K_i)$).
+        \choice Both $V_{\max}$ and $K_m$ decrease proportionally.
+        \choice Both $V_{\max}$ and $K_m$ increase proportionally.
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} Competitive inhibitors bind exclusively to the free enzyme active site, requiring higher substrate concentration to reach half-maximal velocity without reducing total enzyme capacity $V_{\max}$.
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[5] If primary producers capture $10{,}000\,\mathrm{J}$ of energy, approximately how much energy is expected to be incorporated into secondary consumers under Lindeman's $10\%$ law?
+    \begin{choices}
+        \choice $1{,}000\,\mathrm{J}$
+        \CorrectChoice $100\,\mathrm{J}$
+        \choice $10\,\mathrm{J}$
+        \choice $1\,\mathrm{J}$
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} Tier 1 (Producers) = $10{,}000\,\mathrm{J} \to$ Tier 2 (Primary Consumers) = $1{,}000\,\mathrm{J} \to$ Tier 3 (Secondary Consumers) = $100\,\mathrm{J}$.
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[5] In cooperative allosteric binding modeled by the Hill equation $v = \frac{V_{\max}[S]^h}{K_{0.5}^h + [S]^h}$, a Hill coefficient of $h = 2.8$ indicates:
+    \begin{choices}
+        \choice Hyperbolic non-cooperative kinetics.
+        \CorrectChoice Positive cooperativity with sigmoidal binding kinetics.
+        \choice Negative cooperativity with high substrate inhibition.
+        \choice Irreversible enzymatic denaturation.
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} $h > 1$ denotes positive cooperativity, where substrate binding at one active site increases binding affinity at adjacent subunits.
+    \end{solution}
+\end{parts}
+
+\vspace{0.5cm}
+\question \textbf{Derivation of the Lineweaver-Burk Kinetic Equation (20 Points)}
+Starting from the Michaelis-Menten rate equation $v = \frac{V_{\max}[S]}{K_m + [S]}$:
+\begin{parts}
+    \part[10] Take the algebraic reciprocal of both sides to derive the double-reciprocal (Lineweaver-Burk) linear transformation:
+    \begin{equation*}
+        \frac{1}{v} = \frac{K_m}{V_{\max}} \frac{1}{[S]} + \frac{1}{V_{\max}}
+    \end{equation*}
+    \begin{solution}
+        \begin{equation*}
+            \frac{1}{v} = \frac{K_m + [S]}{V_{\max}[S]} = \frac{K_m}{V_{\max}[S]} + \frac{[S]}{V_{\max}[S]} = \left(\frac{K_m}{V_{\max}}\right)\frac{1}{[S]} + \frac{1}{V_{\max}} \quad \blacksquare
+        \end{equation*}
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[10] Identify the $y$-intercept, slope, and $x$-intercept of the resulting plot of $1/v$ against $1/[S]$.
+    \begin{solution}
+        \begin{itemize}
+            \item \textbf{$y$-intercept ($1/[S] = 0$):} $\frac{1}{V_{\max}}$
+            \item \textbf{Slope ($m$):} $\frac{K_m}{V_{\max}}$
+            \item \textbf{$x$-intercept ($1/v = 0$):} $-\frac{1}{K_m}$
+        \end{itemize}
+    \end{solution}
+\end{parts}
+
+\end{questions}
+
+\end{document}

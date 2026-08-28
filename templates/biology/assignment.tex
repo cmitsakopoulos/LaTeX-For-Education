@@ -1,0 +1,124 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm, headheight=15pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+\newif\ifsolutions
+\solutionstrue
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{softgray}{RGB}{248, 249, 250}
+\definecolor{solutionbg}{RGB}{242, 246, 252}
+
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{problembox}[2][]{
+    enhanced, colframe=journalblue, colback=white, boxrule=1.0pt, arc=2pt,
+    fonttitle=\bfseries\sffamily\normalsize, coltitle=white, colbacktitle=journalblue,
+    title={Problem #2 \hfill (#1)}, top=6pt, bottom=6pt, left=8pt, right=8pt,
+    before skip=10pt, after skip=8pt
+}
+
+\newtcolorbox{solutionbox}[1][]{
+    enhanced, colframe=journalblue!60, colback=solutionbg, boxrule=0.6pt, arc=2pt,
+    fonttitle=\bfseries\sffamily\small, coltitle=journalblue,
+    title={Detailed Solution \& Mathematical Derivation},
+    top=6pt, bottom=6pt, left=8pt, right=8pt, before skip=6pt, after skip=10pt, #1
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{BIO 401: Quantitative Biophysics}}
+\fancyhead[R]{\textbf{Problem Set 3}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.8cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\Large\bfseries Division of Biological Sciences \& Quantitative Ecology \par}
+    \vspace{0.2cm}
+    {\large\textbf{Problem Set 3: Enzyme Kinetics Derivations and Predator-Prey Dynamics} \par}
+    \vspace{0.1cm}
+    {\small Due: Friday, October 31 at 17:00 \textbullet\ Total Score: 100 Points \par}
+\end{center}
+
+\vspace{0.4cm}
+
+\begin{problembox}[50 Points]{1: Quasi-Steady-State Derivation of Michaelis-Menten Kinetics}
+Consider the standard single-substrate enzymatic reaction scheme:
+\begin{equation*}
+    E + S \underset{k_{-1}}{\overset{k_1}{\rightleftharpoons}} ES \xrightarrow{k_2} E + P
+\end{equation*}
+where $[E]_0 = [E] + [ES]$ denotes total enzyme concentration.
+\begin{enumerate}[label=(\alph*)]
+    \item Apply the Briggs-Haldane Quasi-Steady-State Assumption (QSSA), $\frac{d[ES]}{dt} = 0$, to express $[ES]$ in terms of $[E]$ and $[S]$.
+    \item Define the Michaelis constant $K_m = \frac{k_{-1} + k_2}{k_1}$ and maximum velocity $V_{\max} = k_2 [E]_0$. Derive the velocity rate equation $v = \frac{V_{\max}[S]}{K_m + [S]}$.
+\end{enumerate}
+\end{problembox}
+
+\ifsolutions
+\begin{solutionbox}
+\textbf{Part (a):} Rate of change of the intermediate complex $[ES]$ is:
+\begin{equation*}
+    \frac{d[ES]}{dt} = k_1 [E][S] - (k_{-1} + k_2)[ES] = 0 \implies k_1 ([E]_0 - [ES])[S] = (k_{-1} + k_2)[ES]
+\end{equation*}
+
+\textbf{Part (b):} Rearranging for $[ES]$:
+\begin{equation*}
+    [ES] \left( \frac{k_{-1} + k_2}{k_1} + [S] \right) = [E]_0 [S] \implies [ES] = \frac{[E]_0 [S]}{K_m + [S]}
+\end{equation*}
+The reaction velocity is the rate of product formation $v = \frac{d[P]}{dt} = k_2 [ES]$:
+\begin{equation*}
+    v = k_2 \frac{[E]_0 [S]}{K_m + [S]} = \frac{V_{\max}[S]}{K_m + [S]} \quad \blacksquare
+\end{equation*}
+\end{solutionbox}
+\fi
+
+\begin{problembox}[50 Points]{2: Equilibria of the Lotka-Volterra Predator-Prey System}
+The non-dimensionalized Lotka-Volterra predator-prey system is given by:
+\begin{equation*}
+    \frac{dN}{dt} = rN - aNP, \qquad \frac{dP}{dt} = baNP - mP
+\end{equation*}
+\begin{enumerate}[label=(\alph*)]
+    \item Find all fixed points $(N^*, P^*)$ where $\frac{dN}{dt} = 0$ and $\frac{dP}{dt} = 0$.
+    \item Linearize the system around the non-trivial co-existence equilibrium and determine the eigenvalues of the Jacobian matrix.
+\end{enumerate}
+\end{problembox}
+
+\ifsolutions
+\begin{solutionbox}
+\textbf{Part (a):} Setting derivatives to zero:
+\begin{align*}
+    N(r - aP) &= 0 \implies N=0 \text{ or } P^* = \frac{r}{a} \\
+    P(baN - m) &= 0 \implies P=0 \text{ or } N^* = \frac{m}{ba}
+\end{align*}
+Fixed points are $(0, 0)$ (extinction) and $(N^*, P^*) = \left(\frac{m}{ba}, \frac{r}{a}\right)$ (co-existence).
+
+\textbf{Part (b):} The Jacobian matrix is:
+\begin{equation*}
+    \mathbf{J}(N, P) = \begin{pmatrix} r - aP & -aN \\ baP & baN - m \end{pmatrix}
+\end{equation*}
+Evaluated at $(N^*, P^*)$:
+\begin{equation*}
+    \mathbf{J}(N^*, P^*) = \begin{pmatrix} 0 & -\frac{am}{ba} \\ ba\frac{r}{a} & 0 \end{pmatrix} = \begin{pmatrix} 0 & -\frac{m}{b} \\ br & 0 \end{pmatrix}
+\end{equation*}
+The characteristic equation is $\det(\mathbf{J} - \lambda \mathbf{I}) = \lambda^2 + mr = 0 \implies \lambda = \pm i \sqrt{mr}$.
+Since eigenvalues are purely imaginary, the non-trivial fixed point is a neutrally stable center surrounded by periodic closed orbits. \hfill $\blacksquare$
+\end{solutionbox}
+\fi
+
+\end{document}

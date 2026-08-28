@@ -1,0 +1,128 @@
+\documentclass[addpoints, 12pt]{exam}
+
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm, headheight=15pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{microtype}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+% Solution Toggle: Uncomment to compile instructor answer key; comment out for blank student exam
+\printanswers
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{tableheader}{RGB}{240, 244, 248}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{rubricbox}[1][]{
+    enhanced, colback=tableheader, colframe=journalblue!70,
+    boxrule=0.6pt, arc=2pt, fonttitle=\bfseries\sffamily\small,
+    coltitle=journalblue, title={Grading Rubric \& Point Distribution},
+    top=4pt, bottom=4pt, left=6pt, right=6pt, #1
+}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{245, 248, 252}
+\renewcommand{\solutiontitle}{\noindent\textbf{\textcolor{journalblue}{Solution:}}\enspace}
+
+\pagestyle{headandfoot}
+\firstpageheader{\textbf{STAT 401}}{\textbf{Midterm Examination}}{\textbf{Fall 2026}}
+\runningheader{\textbf{STAT 401}}{Page \thepage\ of \numpages}{\textbf{Midterm Examination}}
+\firstpagefooter{}{}{}
+\runningfooter{}{\thepage}{}
+\runningheadrule
+\firstpageheadrule
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.6cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\Large\bfseries Probability Theory and Mathematical Statistics \par}
+    \vspace{0.2cm}
+    {\normalsize STAT 401 Midterm Examination \textbullet\ Time Allowed: 90 Minutes \par}
+\end{center}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabular}{@{}p{0.65\textwidth} p{0.30\textwidth}@{}}
+    \textbf{Student Full Name:} \hrulefill & \textbf{Student ID:} \hrulefill \\
+    \textbf{Section / Lab:} \hrulefill & \textbf{Date:} \today \\
+\end{tabular}
+
+\vspace{0.3cm}
+\begin{center}
+    \gradetable[h][questions]
+\end{center}
+
+\vspace{0.4cm}
+\begin{questions}
+
+\question \textbf{Conceptual Probability and Limit Theorems (15 Points)}
+\begin{parts}
+    \part[5] Under the Lindeberg-L\'{e}vy Central Limit Theorem, which condition is strictly necessary for the sample average $\bar{X}_n$ of i.i.d. random variables to converge in distribution to $\mathcal{N}(0, 1)$ after standardization?
+    \begin{choices}
+        \choice The underlying distribution of $X_i$ must be symmetric.
+        \CorrectChoice The underlying distribution must have a finite variance ($\sigma^2 < \infty$).
+        \choice The sample size $n$ must exceed $10{,}000$.
+        \choice The random variables must be uniformly bounded on $[0, 1]$.
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} The classical CLT requires only finite mean $\mu$ and finite positive variance $\sigma^2 < \infty$.
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[5] In a standard normal distribution $Z \sim \mathcal{N}(0, 1)$, what is the two-tailed probability of observing $|Z| > 1.96$?
+    \begin{choices}
+        \choice $0.10$ ($10\%$)
+        \CorrectChoice $0.05$ ($5\%$)
+        \choice $0.025$ ($2.5\%$)
+        \choice $0.01$ ($1\%$)
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: B.} $P(Z < -1.96) = 0.025$ and $P(Z > 1.96) = 0.025$, giving a combined two-tailed probability of $0.05$.
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[5] For a $2 \times 2$ contingency table with total sample size $N$, row marginals $R_1, R_2$, and column marginals $C_1, C_2$, the expected cell count under independence is:
+    \begin{choices}
+        \CorrectChoice $E_{ij} = (R_i \times C_j) / N$
+        \choice $E_{ij} = (R_i + C_j) / 2$
+        \choice $E_{ij} = (R_i \times C_j) / N^2$
+        \choice $E_{ij} = \sqrt{R_i C_j}$
+    \end{choices}
+    \begin{solution}
+        \textbf{Correct Choice: A.} By the product rule of independent events, $P(A_i \cap B_j) = P(A_i)P(B_j) = (R_i/N)(C_j/N)$, so $E_{ij} = N P(A_i \cap B_j) = (R_i C_j)/N$.
+    \end{solution}
+\end{parts}
+
+\vspace{0.5cm}
+\question \textbf{Derivation of Sample Odds Ratio and Chi-Square Statistic (20 Points)}
+\begin{parts}
+    \part[10] Consider a $2 \times 2$ table with cell counts $n_{11} = 40$, $n_{12} = 10$, $n_{21} = 20$, $n_{22} = 30$. Compute the sample Odds Ratio ($\widehat{\mathrm{OR}}$) and interpret the result.
+    \begin{solution}
+        The sample Odds Ratio is:
+        \begin{equation*}
+            \widehat{\mathrm{OR}} = \frac{n_{11} n_{22}}{n_{12} n_{21}} = \frac{40 \times 30}{10 \times 20} = \frac{1200}{200} = 6.0
+        \end{equation*}
+        \textbf{Interpretation:} The odds of the positive outcome in the exposure group are $6$ times the odds in the control group.
+    \end{solution}
+
+    \vspace{0.3cm}
+    \part[10] Calculate the expected frequency $E_{11}$ and its contribution to the Pearson $\chi^2$ statistic.
+    \begin{solution}
+        $R_1 = 50, C_1 = 60, N = 100$.
+        \begin{equation*}
+            E_{11} = \frac{50 \times 60}{100} = 30
+        \end{equation*}
+        Contribution: $\frac{(O_{11} - E_{11})^2}{E_{11}} = \frac{(40 - 30)^2}{30} = \frac{100}{30} = 3.33$.
+    \end{solution}
+\end{parts}
+
+\end{questions}
+
+\end{document}

@@ -1,0 +1,58 @@
+# ==============================================================================
+# LaTeX Auxiliary and Build Files
+# ==============================================================================
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+*.pdfsync
+*.toc
+*.vrb
+
+# Glossaries and Nomenclature
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.nlo
+*.nls
+
+# Epstopdf and ConTeXt
+*.dvi
+*.xdv
+*-eps-converted-to.pdf
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Editor and Tooling Temporary Files
+.cache/
+*.swp
+*.swo
+*~
+
+# Raw Import Staging (Confidential / Research Sources)
+raw_sources/

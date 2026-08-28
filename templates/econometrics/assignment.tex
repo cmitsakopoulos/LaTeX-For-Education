@@ -1,0 +1,119 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm, headheight=15pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{assets/}{templates/assets/}{../../templates/assets/}{./}}
+
+\newif\ifsolutions
+\solutionstrue
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{journalblue}{RGB}{26, 82, 118}
+\definecolor{softgray}{RGB}{248, 249, 250}
+\definecolor{solutionbg}{RGB}{242, 246, 252}
+
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{problembox}[2][]{
+    enhanced, colframe=journalblue, colback=white, boxrule=1.0pt, arc=2pt,
+    fonttitle=\bfseries\sffamily\normalsize, coltitle=white, colbacktitle=journalblue,
+    title={Problem #2 \hfill (#1)}, top=6pt, bottom=6pt, left=8pt, right=8pt,
+    before skip=10pt, after skip=8pt
+}
+
+\newtcolorbox{solutionbox}[1][]{
+    enhanced, colframe=journalblue!60, colback=solutionbg, boxrule=0.6pt, arc=2pt,
+    fonttitle=\bfseries\sffamily\small, coltitle=journalblue,
+    title={Detailed Solution \& Mathematical Derivation},
+    top=6pt, bottom=6pt, left=8pt, right=8pt, before skip=6pt, after skip=10pt, #1
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{ECON 401: Advanced Econometrics}}
+\fancyhead[R]{\textbf{Problem Set 2}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[height=1.8cm]{university_seal.jpg}\par\vspace{0.2em}
+    {\Large\bfseries Department of Economics \par}
+    \vspace{0.2cm}
+    {\large\textbf{Problem Set 2: Panel Fixed Effects and Difference-in-Differences Asymptotics} \par}
+    \vspace{0.1cm}
+    {\small Due: Friday, October 24 at 17:00 \textbullet\ Total Score: 100 Points \par}
+\end{center}
+
+\vspace{0.4cm}
+
+\begin{problembox}[50 Points]{1: Two-Way Fixed Effects Demeaning and Algebraic Equivalence}
+Consider the standard panel regression model with unit fixed effects $\alpha_i$ and time fixed effects $\lambda_t$:
+\begin{equation*}
+    Y_{it} = \alpha_i + \lambda_t + \delta D_{it} + \varepsilon_{it}, \quad i = 1, \dots, N, \;\; t = 1, \dots, T
+\end{equation*}
+\begin{enumerate}[label=(\alph*)]
+    \item Define the within-group double demeaning transformation $\ddot{Y}_{it}$ and prove that $\ddot{\alpha}_i = 0$ and $\ddot{\lambda}_t = 0$.
+    \item Derive the OLS estimator of $\delta$ applied to the double-demeaned equation.
+\end{enumerate}
+\end{problembox}
+
+\ifsolutions
+\begin{solutionbox}
+\textbf{Part (a):} Define $\bar{Y}_i = \frac{1}{T}\sum_{t=1}^T Y_{it}$, $\bar{Y}_t = \frac{1}{N}\sum_{i=1}^N Y_{it}$, and $\bar{Y} = \frac{1}{NT}\sum_{i=1}^N\sum_{t=1}^T Y_{it}$.
+The double-demeaned variable is:
+\begin{equation*}
+    \ddot{Y}_{it} = Y_{it} - \bar{Y}_i - \bar{Y}_t + \bar{Y}
+\end{equation*}
+For the unit effect $\alpha_i$:
+$\bar{\alpha}_i = \alpha_i$, $\bar{\alpha}_t = \frac{1}{N}\sum_i \alpha_i = \bar{\alpha}$, and $\bar{\alpha} = \bar{\alpha}$.
+Hence:
+\begin{equation*}
+    \ddot{\alpha}_i = \alpha_i - \alpha_i - \bar{\alpha} + \bar{\alpha} = 0
+\end{equation*}
+Similarly, $\ddot{\lambda}_t = \lambda_t - \bar{\lambda} - \lambda_t + \bar{\lambda} = 0$.
+
+\textbf{Part (b):} The transformed model is $\ddot{Y}_{it} = \delta \ddot{D}_{it} + \ddot{\varepsilon}_{it}$.
+The within estimator is:
+\begin{equation*}
+    \hat{\delta}_{\mathrm{FE}} = \frac{\sum_{i=1}^N \sum_{t=1}^T \ddot{D}_{it} \ddot{Y}_{it}}{\sum_{i=1}^N \sum_{t=1}^T \ddot{D}_{it}^2} \quad \blacksquare
+\end{equation*}
+\end{solutionbox}
+\fi
+
+\begin{problembox}[50 Points]{2: Equivalence of $2 \times 2$ DiD and Sample Means}
+In a $2$-period, $2$-group setting ($t \in \{1, 2\}$, $D \in \{0, 1\}$), where treatment occurs at $t=2$ for the treated group:
+\begin{enumerate}[label=(\alph*)]
+    \item State the regression specification $Y_{it} = \beta_0 + \beta_1 \mathrm{Treat}_i + \beta_2 \mathrm{Post}_t + \delta (\mathrm{Treat}_i \times \mathrm{Post}_t) + \varepsilon_{it}$.
+    \item Show that the OLS estimate $\hat{\delta}$ equals $(\bar{Y}_{T,2} - \bar{Y}_{T,1}) - (\bar{Y}_{C,2} - \bar{Y}_{C,1})$.
+\end{enumerate}
+\end{problembox}
+
+\ifsolutions
+\begin{solutionbox}
+Evaluating the conditional expectations of $Y$ for the four cells:
+\begin{align*}
+    \mathbb{E}[Y \mid \mathrm{Treat}=0, \mathrm{Post}=0] &= \beta_0 = \bar{Y}_{C,1} \\
+    \mathbb{E}[Y \mid \mathrm{Treat}=0, \mathrm{Post}=1] &= \beta_0 + \beta_2 = \bar{Y}_{C,2} \implies \beta_2 = \bar{Y}_{C,2} - \bar{Y}_{C,1} \\
+    \mathbb{E}[Y \mid \mathrm{Treat}=1, \mathrm{Post}=0] &= \beta_0 + \beta_1 = \bar{Y}_{T,1} \implies \beta_1 = \bar{Y}_{T,1} - \bar{Y}_{C,1} \\
+    \mathbb{E}[Y \mid \mathrm{Treat}=1, \mathrm{Post}=1] &= \beta_0 + \beta_1 + \beta_2 + \delta = \bar{Y}_{T,2}
+\end{align*}
+Solving for $\delta$:
+\begin{equation*}
+    \delta = \bar{Y}_{T,2} - (\beta_0 + \beta_1 + \beta_2) = (\bar{Y}_{T,2} - \bar{Y}_{T,1}) - (\bar{Y}_{C,2} - \bar{Y}_{C,1}) \quad \blacksquare
+\end{equation*}
+\end{solutionbox}
+\fi
+
+\end{document}
